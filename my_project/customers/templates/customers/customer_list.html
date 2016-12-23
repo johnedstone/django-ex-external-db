@@ -1,0 +1,20 @@
+{% extends "customers/base.html" %}
+{% block subtitle %}|List{% endblock %}
+
+{% block page_header %}
+<div class="page-header">
+    <h4>Oracle DB Query</h4>
+    </h4>
+  </div>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="row">
+    {% for customer in customer_list|slice:":11" %}
+        <div class="col-md-12">
+            <p class="text-primary">tcp_address: <span class="text-success">{{ customer }}</span></p>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock content %}
