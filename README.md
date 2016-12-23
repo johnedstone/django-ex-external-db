@@ -37,6 +37,9 @@ oc create -f python_oracle_is.json -n openshift
 # New project and new app
 oc new-project python34-oracle12
 
+# add something here
+# add something here
+
 source <environ variables file>
 
 # Sample: some of these environ var may not be used
