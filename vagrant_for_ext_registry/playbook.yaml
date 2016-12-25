@@ -1,0 +1,29 @@
+---
+- name: set up docker
+  hosts: all
+  become: yes
+  tasks:
+  - name: Ensure NTP is installed
+    yum: name=ntp state=present
+
+  - name: Ensure NTP is runing
+    service: name=ntpd state=started enabled=yes
+
+  - name: Ensure Docker is installed
+    yum: name=docker state=present
+
+  - name: Ensure Docker is runing
+    service: name=docker state=started enabled=yes
+
+  - name: Check if docker_registry is running
+    shell: pgrep registry
+    register: docker_registry
+    ignore_errors: True
+    changed_when: False
+
+  - name: Start registry
+    shell: 'docker run -d -p 5000:5000 --restart=always --name registry registry:2'
+    when: "docker_registry.rc != 0"
+
+
+# vim: ai et ts=2 sw=2 sts=2 nu
