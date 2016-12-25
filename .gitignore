@@ -66,3 +66,4 @@ oracle-instantclient*
 *.retry
 s2i
 sti
+oc
