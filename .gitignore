@@ -63,3 +63,6 @@ target/
 # Custom
 oracle-instantclient*
 .vagrant
+*.retry
+s2i
+sti

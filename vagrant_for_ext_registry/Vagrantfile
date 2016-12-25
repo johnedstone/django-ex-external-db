@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "geerlingguy/centos7"
-  # config.vm.box = "centos/7"
+  # config.vm.box = "geerlingguy/centos7" # no chronyd in this image
+  config.vm.box = "centos/7"
   config.ssh.insert_key = false
   config.vm.synced_folder ".", "/vagrant", disabled: true
 

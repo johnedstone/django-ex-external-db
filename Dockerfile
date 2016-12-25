@@ -1,5 +1,5 @@
+FROM centos/python-34-centos7
 # FROM rhscl/python-34-rhel7:latest
-# FROM centos/python-34-centos7
 MAINTAINER johnedstone <johnedstone@gmail.com>
 USER root
 ADD oracle*.rpm /tmp/

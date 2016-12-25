@@ -3,6 +3,9 @@
   hosts: all
   become: yes
   tasks:
+  - name: Stop and disable chronyd
+    service: name=chronyd state=stopped enabled=no
+
   - name: Ensure NTP is installed
     yum: name=ntp state=present
 
