@@ -83,3 +83,10 @@ docker run --rm -p 8080:8080 -e INTERNAL_IPS=<request IP if not on localhost> -e
 # END Docker examples
 
 ```
+
+#### Notes on Origin all-in-one-vm ####
+As admin:
+    - push newly made docker image, both 1.0.0 and latest to internal Openshift Registry, namespace=openshift
+    - It appears an image stream is created, i.e. no need to create an image stream.
+    - Deployment failing
+    - It appears private docker registry (vm) is not needed
