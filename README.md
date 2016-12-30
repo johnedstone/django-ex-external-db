@@ -7,6 +7,7 @@
 - Openshift 3.3
 - Used custom image (see Dockerfile) to include the three oracle-instantclient12 rpms
 - Dockerfile tested with both centos/python-34-centos7 and rhscl/python-34-rhel7
+- Confirmed with S2I, Origin all-in-one VM and Openshift.
 
 ### Background
 
