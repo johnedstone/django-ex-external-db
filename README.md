@@ -36,9 +36,8 @@ oc create -f python_oracle_is.json -n openshift
 
 # New project and new app
 oc new-project python34-oracle12
-
-# add something here
-# add something here
+oc secrets new-sshauth sshsecret --ssh-privatekey=$HOME/<path to key>
+oc secret add serviceaccount/builder secrets/sshsecret
 
 source <environ variables file>
 
@@ -89,5 +88,10 @@ As admin:
 
 - push newly made docker image, both 1.0.0 and latest to internal Openshift Registry, namespace=openshift
 - It appears an image stream is created, i.e. no need to create an image stream.
-- Deployment failing
-- It appears private docker registry (vm) is not needed
+- Private docker registry (vm) is not needed for Origin all-in-one
+
+#### Notes on difference between Origin all-in-one-vm and s2i
+
+- Openshift sees an empty sting var as real and will not set with os.getenv.
+- To work around this, define some reasonable defaults for openshift that can be overrided
+

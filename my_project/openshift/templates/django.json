@@ -90,10 +90,6 @@
             },
             "env": [
               {
-                "name": "DEBUG",
-                "value": "${DEBUG}"
-              },
-              {
                 "name": "PIP_PROXY",
                 "value": "${PIP_PROXY}"
               }
@@ -300,12 +296,14 @@
     {
       "name": "DATABASE_NAME",
       "displayName": "Database name",
-      "description": "Database name"
+      "description": "Database name",
+      "value": "db.sqlite3"
     },
     {
       "name": "DEBUG",
       "displayName": "Django Debug settings variable",
-      "description": "Django Debug settings variable - if left unset it will be True"
+      "description": "Django Debug settings variable - if left unset it will be True",
+      "value": "on"
     },
     {
       "name": "DATABASE_USER",
@@ -332,7 +330,7 @@
     {
       "name": "DB_TABLE_NAME",
       "displayName": "DB Table Name",
-      "description": "DB Table Name from DB Team"
+      "description": "DB Table Name from DB Team. Override on cli."
     },
     {
       "name": "DISABLE_MIGRATE",
@@ -347,17 +345,21 @@
     {
       "name": "FORCE_SQLITE",
       "displayName": "Force sqlite",
-      "description": "Force sqlite for debugging when debug is False"
+      "description": "Force sqlite for debugging when debug is False",
+      "value": "no"
     },
     {
       "name": "GIT_PROJECT_URL",
       "displayName": "Git Project URL",
-      "description": "Link used by web app. Optional"
+      "description": "Link used by web app. Optional, override on cli",
+      "value": "#"
     },
     {
       "name": "DOCKERFILE_URL",
       "displayName": "Dockerfile URL",
-      "description": "Link used by web app. Optional"
+      "description": "Link used by web app. Optional, override on cli",
+      "value": "#"
+
     }
   ]
 }
