@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 # Source this file to unset the environ variables
-export DEBUG=
-export DATABASE_USER=
-export DATABASE_PASSWORD=
-export DATABASE_NAME=
-export CONTEXT_DIR=
-export SOURCE_REPOSITORY_URL=
-export DISABLE_MIGRATE=
-export APPLICATION_DOMAIN=
+unset DEBUG
+unset DATABASE_USER
+unset DATABASE_PASSWORD
+unset DATABASE_NAME
+unset CONTEXT_DIR
+unset SOURCE_REPOSITORY_URL
+unset DISABLE_MIGRATE
+unset APPLICATION_DOMAIN
 
-export DJANGO_SECRET_KEY=
-export DB_TABLE_NAME=
-export PIP_PROXY=
+unset DJANGO_SECRET_KEY
+unset DB_TABLE_NAME
+unset PIP_PROXY
 
-export GIT_PROJECT_URL=
-export DOCKERFILE_URL=
+unset GIT_PROJECT_URL
+unset DOCKERFILE_URL
 
-export FORCE_SQLITE=
+unset FORCE_SQLITE
 
-export GITHUB_WEBHOOK_SECRET=
+unset GITHUB_WEBHOOK_SECRET

@@ -90,6 +90,10 @@
             },
             "env": [
               {
+                "name": "DEBUG",
+                "value": "${DEBUG}"
+              },
+              {
                 "name": "PIP_PROXY",
                 "value": "${PIP_PROXY}"
               }
