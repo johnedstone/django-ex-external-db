@@ -93,5 +93,4 @@ As admin:
 #### Notes on difference between Origin all-in-one-vm and s2i
 
 - Openshift sees an empty sting var as real and will not set with os.getenv.
-- To work around this, define some reasonable defaults for openshift that can be overrided
-
+- To work around this, define some reasonable defaults for openshift that can be overrided, in the template file.
