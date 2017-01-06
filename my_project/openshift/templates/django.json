@@ -330,7 +330,8 @@
     {
       "name": "DB_TABLE_NAME",
       "displayName": "DB Table Name",
-      "description": "DB Table Name from DB Team. Override on cli."
+      "description": "DB Table Name from DB Team. Override on cli.",
+      "value": "custom_db_table_name"
     },
     {
       "name": "DISABLE_MIGRATE",
