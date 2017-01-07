@@ -1,4 +1,4 @@
-### Work in progress - not complete as of 23-Dec-2016 ###
+### Adding yaml template, 06-Jan-2017 ###
 
 ### Demonstrating connecting to an external database with Openshift 3.3
 - Based on OpenShift 3.x Django example (see GitHub reference below)
@@ -87,11 +87,11 @@ docker run --rm -p 8080:8080 -e INTERNAL_IPS=<request IP if not on localhost> -e
 #### Notes on Origin all-in-one-vm ####
 As admin:
 
-- push newly made docker image, both 1.0.0 and latest to internal Openshift Registry, namespace=openshift
+- push newly made docker image, tagged 1.0.0, to internal Openshift Registry, namespace=openshift
 - It appears an image stream is created, i.e. no need to create an image stream.
 - Private docker registry (vm) is not needed for Origin all-in-one
 
 #### Notes on difference between Origin all-in-one-vm and s2i
 
-- Openshift sees an empty sting var as real and will not set with os.getenv.
+- Openshift sees an empty sting var as real and will not set with os.environ.get.
 - To work around this, define some reasonable defaults for openshift that can be overrided, in the template file.
