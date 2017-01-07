@@ -4,7 +4,7 @@ import socket
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv(
+SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY',
      hashlib.sha1(os.urandom(128)).hexdigest(), 
 )
@@ -12,8 +12,7 @@ SECRET_KEY = os.getenv(
 DEBUG = os.environ.get('DEBUG', 'on') == 'on'
 FORCE_SQLITE = os.environ.get('FORCE_SQLITE', 'no') == 'yes' # Used to debug
 
-FQDN_CONTAINER = socket.getfqdn()
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,{}'.format(FQDN_CONTAINER)).split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 INTERNAL_IPS = os.environ.get('INTERNAL_IPS', 'localhost,127.0.0.1').split(',') 
 
 DB_TABLE_NAME = os.environ.get('DB_TABLE_NAME', 'custom_db_table_name')

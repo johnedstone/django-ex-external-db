@@ -195,6 +195,10 @@
                     "value": "${DEBUG}"
                   },
                   {
+                    "name": "ALLOWED_HOSTS",
+                    "value": "${ALLOWED_HOSTS}"
+                  },
+                  {
                     "name": "DATABASE_USER",
                     "value": "${DATABASE_USER}"
                   },
@@ -304,6 +308,12 @@
       "displayName": "Django Debug settings variable",
       "description": "Django Debug settings variable - if left unset it will be True",
       "value": "on"
+    },
+    {
+      "name": "ALLOWED_HOSTS",
+      "displayName": "Allowed Hosts",
+      "description": "Allowed host - django setting",
+      "value": "*"
     },
     {
       "name": "DATABASE_USER",

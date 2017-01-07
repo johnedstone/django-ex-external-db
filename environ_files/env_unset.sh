@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Source this file to unset the environ variables
 unset DEBUG
+unset ALLOWED_HOSTS
 unset DATABASE_USER
 unset DATABASE_PASSWORD
 unset DATABASE_NAME
