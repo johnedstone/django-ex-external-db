@@ -1,6 +1,7 @@
-### Adding yaml template, 06-Jan-2017 ###
+### Demonstrating connecting to an external database with an Openshift 3.3 microservice ###
 
-### Demonstrating connecting to an external database with Openshift 3.3
+#### Work in progress: adding yaml template, 06-Jan-2017 ####
+
 - Based on OpenShift 3.x Django example (see GitHub reference below)
 - Python 3.4
 - Django 1.10.1
