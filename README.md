@@ -8,6 +8,7 @@
 - Used custom image (see Dockerfile) to include the three oracle-instantclient12 rpms
 - Dockerfile tested with both centos/python-34-centos7 and rhscl/python-34-rhel7
 - Confirmed with S2I, Origin all-in-one VM and Openshift.
+- The code for this project can also be used on a traditional webserver.  The file `wsgi.py` may have to be copied one level deeper when the `runserver` command for debugging is used.  `wsgi.py`  has been moved up one directory here to accomodiate starting gunicorn for origin/openshift.
 
 ### Background
 
