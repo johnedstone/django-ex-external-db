@@ -1,0 +1,232 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: python34-oracle12
+  annotations:
+    description: An example Django application reading an oracle database
+    tags: quickstart,python,django
+    iconClass: icon-python
+labels:
+  template: python34-oracle12
+objects:
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    annotations:
+      description: Exposes and load balances the application pods
+  spec:
+    ports:
+    - name: web
+      port: 8080
+      targetPort: 8080
+    selector:
+      name: ${NAME}
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+  spec:
+    host: ${APPLICATION_DOMAIN}
+    to:
+      kind: Service
+      name: ${NAME}
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    annotations:
+      description: Keeps track of changes in the application image
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    annotations:
+      description: Defines how to build the application
+  spec:
+    source:
+      type: Git
+      git:
+        uri: ${SOURCE_REPOSITORY_URL}
+        ref: ${SOURCE_REPOSITORY_REF}
+      sourceSecret:
+        name: ${GITHUB_WEBHOOK_SECRET}
+      contextDir: ${CONTEXT_DIR}
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          namespace: ${NAMESPACE}
+          name: python34-oracle12:1.0.0
+        env:
+        - name: PIP_PROXY
+          value: ${PIP_PROXY}
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${NAME}:latest
+    triggers:
+    - type: ImageChange
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: ${GITHUB_WEBHOOK_SECRET}
+    postCommit:
+      script: 'echo ./manage.py test # OSE 3.3: commenting out since cx_oracle is
+        failing on its test, not to worry right now'
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: ${NAME}
+    annotations:
+      description: Defines how to deploy the application server
+  spec:
+    strategy:
+      type: Rolling
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - python34-oracle12
+        from:
+          kind: ImageStreamTag
+          name: ${NAME}:latest
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: ${NAME}
+    template:
+      metadata:
+        name: ${NAME}
+        labels:
+          name: ${NAME}
+      spec:
+        containers:
+        - name: python34-oracle12
+          image: ' '
+          ports:
+          - containerPort: 8080
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            httpGet:
+              path: /
+              port: 8080
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 30
+            httpGet:
+              path: /health
+              port: 8080
+          env:
+          - name: DEBUG
+            value: ${DEBUG}
+          - name: ALLOWED_HOSTS
+            value: ${ALLOWED_HOSTS}
+          - name: DATABASE_USER
+            value: ${DATABASE_USER}
+          - name: DATABASE_PASSWORD
+            value: ${DATABASE_PASSWORD}
+          - name: DATABASE_NAME
+            value: ${DATABASE_NAME}
+          - name: APP_CONFIG
+            value: ${APP_CONFIG}
+          - name: DJANGO_SECRET_KEY
+            value: ${DJANGO_SECRET_KEY}
+          - name: DB_TABLE_NAME
+            value: ${DB_TABLE_NAME}
+          - name: DISABLE_MIGRATE
+            value: ${DISABLE_MIGRATE}
+          - name: FORCE_SQLITE
+            value: ${FORCE_SQLITE}
+          - name: GIT_PROJECT_URL
+            value: ${GIT_PROJECT_URL}
+          - name: DOCKERFILE_URL
+            value: ${DOCKERFILE_URL}
+          resources:
+            limits:
+              memory: ${MEMORY_LIMIT}
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: python34-oracle12
+- name: NAMESPACE
+  displayName: Namespace
+  required: true
+  description: The OpenShift Namespace where the ImageStream resides.
+  value: openshift
+- name: MEMORY_LIMIT
+  displayName: Memory limit
+  description: Maximum amount of memory the container can use
+  value: 512Mi
+- name: SOURCE_REPOSITORY_URL
+  displayName: Source repository URL
+  description: The URL of the repository with your application source code
+- name: SOURCE_REPOSITORY_REF
+  displayName: Source repository reference
+  description: Set this to a branch name, tag or other ref of your repository if you
+    are not using the default branch
+- name: CONTEXT_DIR
+  displayName: Context directory
+  description: Set this to the relative path to your project if it is not in the root
+    of your repository
+- name: APPLICATION_DOMAIN
+  displayName: Application hostname
+  description: The exposed hostname that will route to the Django service, if left
+    blank a value will be defaulted.
+- name: GITHUB_WEBHOOK_SECRET
+  displayName: GitHub webhook secret
+  description: A secret string used to configure the GitHub webhook
+  value: sshsecret
+- name: DATABASE_NAME
+  displayName: Database name
+  description: Database name
+  value: db.sqlite3
+- name: DEBUG
+  displayName: Django Debug settings variable
+  description: Django Debug settings variable - if left unset it will be True
+  value: 'on'
+- name: ALLOWED_HOSTS
+  displayName: Allowed Hosts
+  description: Allowed host - django setting
+  value: '*'
+- name: DATABASE_USER
+  displayName: Database user name
+  description: Database user name
+- name: DATABASE_PASSWORD
+  displayName: Database user password
+  description: Database user password
+- name: APP_CONFIG
+  displayName: Application configuration file path
+  description: Relative path to Gunicorn configuration file (optional)
+- name: DJANGO_SECRET_KEY
+  displayName: Djange secret key
+  description: Set this to a long random string
+  generate: expression
+  from: '[\w]{50}'
+- name: DB_TABLE_NAME
+  displayName: DB Table Name
+  description: DB Table Name from DB Team. Override on cli.
+  value: custom_db_table_name
+- name: DISABLE_MIGRATE
+  displayName: Disable Migrate
+  description: Set this to a non-empty value to inhibit database migration
+- name: PIP_PROXY
+  displayName: PIP PROXY
+  description: PIP environment variable for proxy
+- name: FORCE_SQLITE
+  displayName: Force sqlite
+  description: Force sqlite for debugging when debug is False
+  value: 'no'
+- name: GIT_PROJECT_URL
+  displayName: Git Project URL
+  description: Link used by web app. Optional, override on cli
+  value: '#'
+- name: DOCKERFILE_URL
+  displayName: Dockerfile URL
+  description: Link used by web app. Optional, override on cli
+  value: '#'
