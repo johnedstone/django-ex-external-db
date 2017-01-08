@@ -94,3 +94,7 @@ As admin:
 
 - Openshift sees an empty sting var as real and will not set with os.environ.get.
 - To work around this, define some reasonable defaults for openshift that can be overrided, in the template file.
+
+#### To Do ####
+
+- Add INTERNAL_IPS to template to help in debugging, when requests originates from other than 127.0.0.1
