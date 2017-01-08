@@ -1,7 +1,5 @@
 ### Demonstrating connecting to an external database with an Openshift 3.3 microservice ###
 
-#### Work in progress: adding yaml template, 06-Jan-2017 ####
-
 - Based on OpenShift 3.x Django example (see GitHub reference below)
 - Python 3.4
 - Django 1.10.1
@@ -9,6 +7,7 @@
 - Used custom image (see Dockerfile) to include the three oracle-instantclient12 rpms
 - Dockerfile tested with both centos/python-34-centos7 and rhscl/python-34-rhel7
 - Confirmed with S2I, Origin all-in-one VM and Openshift.
+- Both json and yaml templates provided at `my_project/openshift/templates/`
 - The code for this project can also be used on a traditional webserver.  The file `wsgi.py` may have to be copied one level deeper when the `runserver` command for debugging is used.  `wsgi.py`  has been moved up one directory here to accomodiate starting gunicorn for origin/openshift.
 
 ### Background
@@ -20,8 +19,6 @@
     - oracle-instantclient12.1-basic-12.1.0.2.0-1.x86_64
     - oracle-instantclient12.1-sqlplus-12.1.0.2.0-1.x86_64
     - oracle-instantclient12.1-devel-12.1.0.2.0-1.x86_64
-
-- see also the v1-django-simple branch at https://github.com/johnedstone/django-ex
 
 #### Helpful commands ####
 
