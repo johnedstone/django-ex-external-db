@@ -6,6 +6,6 @@
     "namespace": "openshift"
   },
   "spec": {
-    "dockerImageRepository": "local-docker-registry-fqdn/custom-images/python34-oracle12:1.0.0"
+    "dockerImageRepository": "local-docker-registry-fqdn/custom-images/python34-oracle12"
   }
 }
